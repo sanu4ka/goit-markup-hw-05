@@ -37,6 +37,9 @@
   --focus-btnclr: #188ce8;
   --header-border: #ececec;
   --foter-social: rgba(255, 255, 255, 0.1);
+  --backdrop: rgba(0, 0, 0, 0.2);
+  --works-background: rgba(47, 48, 58, 0.8);
+  --portfolio-animationbcg: rgba(33, 150, 243, 0.9);
   /* Другое */
   --items: 3;
   --indent: 30px;
@@ -145,13 +148,26 @@ header > .container {
   color: var(--text-color);
   padding-top: 32px;
   padding-bottom: 32px;
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .nav-link:hover,
 .nav-link:focus {
   color: var(--focus-color);
 }
-.nav-list .nav-link.current {
+.nav-link.current {
+  position: relative;
   color: var(--focus-color);
+}
+.nav-link.current::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  display: block;
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  background-color: var(--focus-color);
 }
 .contacts-link {
   color: var(--subtext-color);
@@ -159,6 +175,7 @@ header > .container {
   padding-bottom: 32px;
   display: flex;
   align-items: center;
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .contacts-link:hover,
 .contacts-link:focus {
@@ -210,10 +227,58 @@ header > .container {
   border-radius: 4px;
   padding: 10px 32px;
   border: 0;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .main-button:hover,
 .main-button:focus {
   background-color: var(--focus-btnclr);
+}
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--backdrop);
+  opacity: 1;
+  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.backdrop.is-hidden {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+.backdrop.is-hidden .modal {
+  transform: translate(-50%, -50%) scale(0.6);
+  opacity: 0;
+}
+.modal {
+  position: relative;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  width: 528px;
+  height: 581px;
+  background-color: var(--mainbcg-color);
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14),
+    0px 2px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  opacity: 1;
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.modal > button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: var(--mainbcg-color);
 }
 
 /* 2.2.2 Преимущества */
@@ -262,6 +327,26 @@ section.work {
 }
 .works-listitm:not(:last-child) {
   margin-right: var(--indent);
+}
+.works-listitm {
+  position: relative;
+  z-index: -1;
+}
+.works-description {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--works-background);
+}
+.works-description p {
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--maintext-color);
 }
 
 /* 2.2.4 Команда */
@@ -320,6 +405,8 @@ section.work {
   justify-content: center;
   border-radius: 50%;
   color: var(--social-icon-clr);
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .team-social-list a:hover,
 .team-social-list a:focus {
@@ -357,6 +444,8 @@ section.work {
   color: var(--social-icon-clr);
   border: 1px solid var(--social-icon-clr);
   border-radius: 4px;
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .clients-list a:hover,
 .clients-list a:focus {
@@ -398,9 +487,11 @@ address {
 }
 .map-link {
   color: var(--maintext-color);
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .contacts-footer {
   color: var(--foter-linkclr);
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .map-link:hover,
 .map-link:focus,
@@ -437,6 +528,7 @@ address {
   border-radius: 50%;
   color: var(--maintext-color);
   background-color: var(--foter-social);
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .social-list-connect a:hover,
 .social-list-connect a:focus {
@@ -478,6 +570,8 @@ address {
   padding-right: 22px;
   padding-bottom: 6px;
   padding-top: 6px;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    color 250ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .buttons-portfolio.current-btn {
   background-color: var(--focus-color);
@@ -502,6 +596,7 @@ address {
 }
 .portfolio-sections a {
   display: block;
+  transition: box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .portfolio-sections a:hover {
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.12), 0px 4px 4px rgba(0, 0, 0, 0.06),
@@ -531,4 +626,27 @@ address {
   font-size: 16px;
   line-height: 1.88;
   color: var(--subtext-color);
+}
+.section-animation {
+  position: relative;
+  overflow: hidden;
+}
+.section-description {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 294px;
+  width: 370px;
+  transform: translateY(100%);
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 63px 24px;
+  background-color: var(--portfolio-animationbcg);
+}
+.section-description p {
+  font-size: 18px;
+  line-height: 1.56;
+  color: var(--maintext-color);
+}
+.portfolio-sections a:hover .section-description {
+  transform: translateY(0);
 }
